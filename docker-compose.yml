@@ -7,3 +7,5 @@ services:
       POSTGRES_DB: fx_ledger
     ports:
       - "5432:5432"
+    volumes:
+      - ./infra/postgres/migrations:/docker-entrypoint-initdb.d
