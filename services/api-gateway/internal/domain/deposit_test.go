@@ -3,21 +3,21 @@ package domain
 import "testing"
 
 func TestNewDeposit_WhenWalletIDIsEmpty_ShouldReturnError(t *testing.T) {
-	money, error := NewMoney(1000, "USD")
-	if error != nil {
-		t.Fatalf("unexpected error creating money: %v", error)
+	money, err := NewMoney(1000, "USD")
+	if err != nil {
+		t.Fatalf("unexpected error creating money: %v", err)
 	}
-	_, error = NewDeposit("deposit-1", "", money)
+	_, err = NewDeposit("deposit-1", "", money)
 
-	if error == nil {
+	if err == nil {
 		t.Errorf("expected error when walletID is empty")
 	}
 }
 
 func TestNewDeposit_WhenMoneyIsValid_ShouldCreateDeposit(t *testing.T) {
-	money, error := NewMoney(1000, "USD")
-	if error != nil {
-		t.Fatalf("unexpected error creating money: %v", error)
+	money, err := NewMoney(1000, "USD")
+	if err != nil {
+		t.Fatalf("unexpected error creating money: %v", err)
 	}
 
 	deposit, err := NewDeposit("deposit-1", "wallet-1", money)

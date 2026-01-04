@@ -28,23 +28,23 @@ func NewCreateDepositUseCase(repo DepositRepository) *CreateDepositUseCase {
 }
 
 func (uc *CreateDepositUseCase) Execute(input CreateDepositInput) (CreateDepositOutput, error) {
-	money, error := domain.NewMoney(input.Amount, input.Currency)
-	if error != nil {
-		return CreateDepositOutput{}, error
+	money, err := domain.NewMoney(input.Amount, input.Currency)
+	if err != nil {
+		return CreateDepositOutput{}, err
 	}
 
-	deposit, error := domain.NewDeposit(
+	deposit, err := domain.NewDeposit(
 		uuid.NewString(),
 		input.WalletID,
 		money,
 	)
 
-	if error != nil {
-		return CreateDepositOutput{}, error
+	if err != nil {
+		return CreateDepositOutput{}, err
 	}
 
-	if error := uc.repo.Save(deposit); error != nil {
-		return CreateDepositOutput{}, error
+	if err := uc.repo.Save(deposit); err != nil {
+		return CreateDepositOutput{}, err
 	}
 
 	return CreateDepositOutput{

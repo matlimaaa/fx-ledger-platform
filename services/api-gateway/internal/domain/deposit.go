@@ -6,9 +6,9 @@ import (
 )
 
 type Deposit struct {
-	ID string
-	WalletID string
-	Money Money
+	ID        string
+	WalletID  string
+	Money     Money
 	CreatedAt time.Time
 }
 
@@ -18,9 +18,9 @@ func NewDeposit(id, walletID string, money Money) (Deposit, error) {
 	}
 
 	return Deposit{
-		ID: id,
-		WalletID: walletID,
-		Money: money,
+		ID:        id,
+		WalletID:  walletID,
+		Money:     money,
 		CreatedAt: time.Now(),
 	}, nil
 }

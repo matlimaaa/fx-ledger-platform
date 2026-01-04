@@ -3,7 +3,7 @@ package domain
 import "errors"
 
 type Money struct {
-	Amount int64
+	Amount   int64
 	Currency string
 }
 
@@ -17,7 +17,7 @@ func NewMoney(amount int64, currency string) (Money, error) {
 	}
 
 	return Money{
-		Amount: amount,
+		Amount:   amount,
 		Currency: currency,
 	}, nil
 }

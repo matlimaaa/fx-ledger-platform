@@ -15,7 +15,7 @@ func NewDepositRepository(db *sql.DB) *DepositRepository {
 }
 
 func (r *DepositRepository) Save(d domain.Deposit) error {
-	_, error := r.db.Exec(
+	_, err := r.db.Exec(
 		`INSERT INTO deposits (id, wallet_id, amount, currency, created_at)
 		VALUES ($1, $2, $3, $4, $5)`,
 		d.ID,
@@ -25,5 +25,5 @@ func (r *DepositRepository) Save(d domain.Deposit) error {
 		d.CreatedAt,
 	)
 
-	return error
+	return err
 }
