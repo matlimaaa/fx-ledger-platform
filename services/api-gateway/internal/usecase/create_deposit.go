@@ -13,6 +13,7 @@ type CreateDepositInput struct {
 
 type CreateDepositOutput struct {
 	DepositID string
+	Deposit   domain.Deposit
 }
 
 type DepositRepository interface {
@@ -49,5 +50,6 @@ func (uc *CreateDepositUseCase) Execute(input CreateDepositInput) (CreateDeposit
 
 	return CreateDepositOutput{
 		DepositID: deposit.ID,
+		Deposit:   deposit,
 	}, nil
 }
