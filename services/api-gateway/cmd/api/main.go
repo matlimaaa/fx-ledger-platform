@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	_ "github.com/lib/pq"
+
 	httpadapter "github.com/matlimaaa/fx-ledger-platform/services/api-gateway/internal/adapters/http"
 	"github.com/matlimaaa/fx-ledger-platform/services/api-gateway/internal/adapters/postgres"
 	"github.com/matlimaaa/fx-ledger-platform/services/api-gateway/internal/usecase"
@@ -16,7 +17,6 @@ func main() {
 		"postgres",
 		"postgres://fx:fx@localhost:5432/fx_ledger?sslmode=disable",
 	)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,9 +25,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	depositRepo := postgres.NewDepositRepository(db)
-	createDepositUC := usecase.NewCreateDepositUseCase(depositRepo)
-	depositHandler := httpadapter.NewDepositHandler(createDepositUC)
+	txFactory := postgres.NewTxFactory(db)
+
+	depositFundsUC := usecase.NewDepositFundsUseCase(txFactory)
+
+	depositHandler := httpadapter.NewDepositHandler(depositFundsUC)
 
 	mux := http.NewServeMux()
 

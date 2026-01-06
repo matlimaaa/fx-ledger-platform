@@ -8,10 +8,12 @@ import (
 )
 
 type DepositHandler struct {
-	uc *usecase.CreateDepositUseCase
+	uc *usecase.DepositFundsUseCase
 }
 
-func NewDepositHandler(uc *usecase.CreateDepositUseCase) *DepositHandler {
+func NewDepositHandler(
+	uc *usecase.DepositFundsUseCase,
+) *DepositHandler {
 	return &DepositHandler{uc: uc}
 }
 
@@ -27,7 +29,7 @@ func (h *DepositHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	output, err := h.uc.Execute(usecase.CreateDepositInput(req))
+	output, err := h.uc.Execute(usecase.DepositFundsInput(req))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnprocessableEntity)
 		return
